@@ -1,3 +1,9 @@
+# Config files with potentially private detaisl such as ip addresses
+.urconf*
+
+# annoying OSX icon files
+Icon?
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
