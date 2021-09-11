@@ -5,7 +5,7 @@
 # moderately overwhelmed (might equal learning)
 
 from player_interface import LocalPlayerInterface
-from ur_board import Board, Player
+from ur_player import Board, Player
 from random
 
 # setup game
