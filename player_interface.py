@@ -1,23 +1,30 @@
 import pygame
+from abc import ABC
 
-class PlayerInterface:
+class PlayerInterface(ABC):
 
-    window = None
+    @abstractmethod
+    def get_roll():
+        pass
 
-    def __init__():
+    @abstractmethod
+    def get_move(roll):
+        pass
 
-    def getMove():
+    @abstractmethod
+    def show_move(start, end):
+        pass
 
-    def showMove():
-
-
-    pass
+    @abstractmethod
+    def show_result(winner):
+        pass
 
 class LocalPlayerInterface(PlayerInterface):
+    display = None
 
-    def __init__ (self, screen = None):
+    def __init__ (self):
         super().__init__()
-        if not screen:
+        if not LocalPlayerInterface.display:
             pygame.init()
             self._color = '
             blue'
