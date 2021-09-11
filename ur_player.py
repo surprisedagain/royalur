@@ -24,7 +24,7 @@ class Player(*, opponent=None):
             return False
         if end != 0 and end != self.LENGTH-1 and self._pieces[end]:
             return False
-        if end in Board.star_squares and player._other_player._pieces[end]:
+        if end in self.STAR_SQUARES and self.opponent._pieces[end]:
             return False
         return True
 
