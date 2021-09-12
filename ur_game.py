@@ -5,8 +5,8 @@
 # moderately overwhelmed (might equal learning)
 
 from player_interface import LocalPlayerInterface
-from ur_player import Board, Player
-from random
+from ur_player import Player
+from random import randrange
 
 # setup game
 first_player = Player()
@@ -21,7 +21,7 @@ if random.randrange(2):
     curr_player = curr_player.opponent
 
 try:
-    while not (board.player1_win or board.player2_win):
+    while not curr_player.opponent.has_won():
         roll = curr_player.interface.get_roll()
         if curr_player.can_move(roll):
             curr_player.interface.get_move(roll)
