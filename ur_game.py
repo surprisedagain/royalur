@@ -25,16 +25,18 @@ try:
             curr_player.interface.show_roll(roll) # we have already rolled the dice before we show
             if not curr_player.can_move(roll):
                 curr_player.interface.show_cant_move(roll)
-                # another_move = True # assignment not required
+                # another_move remains True
             else:
                 # get valid move
-                start, end = curr_player.interface.get_move(roll)
+                end = curr_player.interface.get_move(roll)
+                start = end - roll
                 while not curr_player.is_valid_move(start, end):
                     curr_player.interface.show_invalid_move(start, end)
-                    start, end = curr_player.interface.get_move(roll)
+                    end = curr_player.interface.get_move(roll)
+                    start = end - roll
                 # perform and show move
                 another_move = curr_player.move(start, end)
-                curr_player.interface.show_move(start, end) # with network Player this may be thought of as ACK move
+                curr_player.interface.show_move(start, end)
     curr_player.interface.show_lost()
     curr_player.opponent.interface.show_won()
     
