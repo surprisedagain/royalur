@@ -1,6 +1,8 @@
 # written by Nathan Sinclair 10/9/21
 # mood: at the overawed stage of the project too many new things
 
+from random import randrange
+
 class Player():
     LENGTH = 16
     FIRST_COMBAT = 5
@@ -8,12 +10,12 @@ class Player():
     COMBAT_STAR = 8
     STARS = frozenset((4, 8, 14))
 
-    def __init__(self, *, opponent=None):
+    def __init__(self, interface, *, opponent=None):
         self._pieces = [7] + [0]*(self.LENGTH-1)
         self.opponent = opponent
         if opponent:
             opponent.opponent = self
-        self.interface = None
+        self.interface = interface
 
     def can_move(self, roll):
         if roll == 0:
@@ -32,6 +34,9 @@ class Player():
         if end == self.COMBAT_STAR and self.opponent._pieces[self.COMBAT_STAR]:
             return False
         return True
+
+    def roll_pyramids(self):
+        return sum(randrange(2) for _ in range(4))
 
     def move(self, start, end):
         if not self._pieces[start]:

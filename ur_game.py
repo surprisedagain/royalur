@@ -4,28 +4,46 @@
 # Already learnt about shebang, ABC.@abstractmethods, git stage+commit+pull+push
 # moderately overwhelmed (might equal learning)
 
-from player_interface import LocalPlayerInterface
+from ur_interface import LocalPlayerInterface
 from ur_player import Player
 from random import randrange
 
 # setup game
-first_player = Player()
-first_player.interface = LocalPlayerInterface()
-
-second_player = Player(opponent=first_player)
-second_player.interface = LocalPlayerInterface()
+first_player = Player(LocalPlayerInterface(side = 'L'))
+second_player = Player(LocalPlayerInterface(side = 'R'), opponent=first_player)
 
 # Toss a coin for who goes first
 curr_player = first_player
-if random.randrange(2): 
-    curr_player = curr_player.opponent
+if randrange(2): 
+    curr_player = second_player
 
 try:
     while not curr_player.opponent.has_won():
-        roll = curr_player.interface.get_roll()
-        if curr_player.can_move(roll):
-            curr_player.interface.get_move(roll)
-        else:
-            curr_player.display
+        another_move = True
+        while another_move:
+            roll = curr_player.roll_pyramids() 
+            curr_player.interface.show_roll(roll) # we have already rolled the dice before we show
+            if not curr_player.can_move(roll):
+                curr_player.interface.show_cant_move(roll)
+                # another_move = True # assignment not required
+            else:
+                # get valid move
+                start, end = curr_player.interface.get_move(roll)
+                while not curr_player.is_valid_move(start, end):
+                    curr_player.interface.show_invalid_move(start, end)
+                    start, end = curr_player.interface.get_move(roll)
+                # perform and show move
+                another_move = curr_player.move(start, end)
+                curr_player.interface.show_move(start, end) # with network Player this may be thought of as ACK move
+    curr_player.interface.show_lost()
+    curr_player.opponent.interface.show_won()
+    
+#
+    # Wait for quit signal
+    while True:
+        first_player.interface.check_for_quit()
+        second_player.interface.check_for_quit()
+
 except GUIQuitException:
-    pass
+        first_player.interface.quit()
+        second_player.interface.quit()
