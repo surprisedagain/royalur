@@ -1,6 +1,6 @@
 import pygame
-from abc import ABC
 import os
+from abc import ABC
 
 class PlayerInterface(ABC):
 
@@ -31,14 +31,18 @@ class LocalInterface(PlayerInterface):
             pygame.init()
             LocalInterface.clock = pygame.time.Clock()
             LocalInterface.display = pygame.display.set_mode((WIDTH, HEIGHT)) #arg? pygame.SCALED
-            background = pygame.image.load(os.path.join('images', 'background.PNG??')).convert()
+            background = pygame.image.load(os.path.join('images',
+                                                'background.PNG??')).convert()
             display.blit(background)
 
         if side == 'L':
-            start_positions = [list of Rect]
-            piece_surf = pygame.image.load(os.path.join('images', 'left_piece.PNG??')).convert()
-            for i in range(num_pieces):
-                start_positions[i]
+            self._piece_surf = pygame.image.load(os.path.join('images', 'left_piece.PNG??')).convert()
+           ????
+           self._start_positions = [list of Rect]
+           self._end_positions = [list of Rect]
+           self._
+           self._rollRect = Rect
+
             ???? set up the rects for places I can click: combat + my safe + roll box
             ???? also set positions for where I can move my pieces to and from
             rollRect, messageRect
@@ -46,6 +50,10 @@ class LocalInterface(PlayerInterface):
         else: # side == 'R'
             ???? set up the rects for places I can click: combat + my safe + roll box
             ???? also set positions for where I can move my pieces to and from
+
+        # put piece images into their 
+        for i in range(self._pieces_at_start):
+            self.display.blit((self._piece_surf, self._start_positions[i]))
 
     def get_move(self, roll):
         pygame wait for click on some square and return INDEX of containing Rect
