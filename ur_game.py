@@ -4,7 +4,7 @@
 # Already learnt about shebang, ABC.@abstractmethods, git stage+commit+pull+push
 # moderately overwhelmed (might equal learning)
 
-from ur_interface import LocalPlayerInterface
+from ur_interface import LocalPlayerInterface, GUIQuitException
 from ur_player import Player
 from random import randrange
 
@@ -28,24 +28,23 @@ try:
                 # another_move remains True
             else:
                 # get valid move
-                end = curr_player.interface.get_move(roll)
-                start = end - roll
+                start = curr_player.interface.get_start(roll)
+                end = start + roll
                 while not curr_player.is_valid_move(start, end):
                     curr_player.interface.show_invalid_move(start, end)
-                    end = curr_player.interface.get_move(roll)
-                    start = end - roll
+                    start = curr_player.interface.get_start(roll)
+                    end = start + roll
                 # perform and show move
                 another_move = curr_player.move(start, end)
                 curr_player.interface.show_move(start, end)
     curr_player.interface.show_lost()
     curr_player.opponent.interface.show_won()
     
-#
-    # Wait for quit signal
-    while True:
+    while True: # Wait for quit signal
         first_player.interface.check_for_quit()
         second_player.interface.check_for_quit()
 
 except GUIQuitException:
-        first_player.interface.quit()
-        second_player.interface.quit()
+        first_player.interface.close()
+        second_player.interface. close()
+        exit(0)

@@ -35,7 +35,8 @@ class Player():
             return False
         return True
 
-    def roll_pyramids(self):
+    @staticmethod
+    def roll_pyramids():
         return sum(randrange(2) for _ in range(4))
 
     def move(self, start, end):
