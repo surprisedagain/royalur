@@ -4,13 +4,13 @@
 # Already learnt about shebang, ABC.@abstractmethods, git stage+commit+pull+push
 # moderately overwhelmed (might equal learning)
 
-from ur_interface import LocalPlayerInterface, GUIQuitException
+from ur_interface import LocalInterface, GUIQuitException
 from ur_player import Player
 from random import randrange
 
 # setup game
-first_player = Player(LocalPlayerInterface(side = 'L'))
-second_player = Player(LocalPlayerInterface(side = 'R'), opponent=first_player)
+first_player = Player(LocalInterface(side = 'L'))
+second_player = Player(LocalInterface(side = 'R'), opponent=first_player)
 
 # Toss a coin for who goes first
 curr_player = first_player
@@ -46,5 +46,5 @@ try:
 
 except GUIQuitException:
         first_player.interface.close()
-        second_player.interface. close()
+        second_player.interface.close()
         exit(0)
