@@ -4,10 +4,10 @@
 # Already learnt about shebang, ABC.@abstractmethods, git stage+commit+pull+push
 # moderately overwhelmed (might equal learning)
 
-from .interface import LocalInterface, GUIQuitException
-from .player import Player
+from interface import LocalInterface, GUIQuitException
+from player import Player
 from random import randrange
-from sys import exit
+from sys import exit, argv
 
 def play():
     # setup game
