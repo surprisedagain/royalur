@@ -33,24 +33,46 @@ class PlayerInterface(ABC):
     def show_won(winner):
         pass
 
+def scale_surface(surface, ratio):
+    if ratio == 1:
+        return surface
+    #else:
+    return pygame.transform.smoothscale(surface,
+                                       scale_tuple(surface.get_size(), ratio))
+
+def scale_tuple(tuple_, ratio):
+    if ratio == 1:
+        return tuple_
+    #else:
+    return tuple(int(ratio*num) for num in tuple_)
+
 class LocalInterface(PlayerInterface):
+    MAX_WIDTH, MAX_HEIGHT = 1200, 1050
     pygame.init()
     pygame.event.set_blocked(None) # block all events
     pygame.event.set_allowed((pygame.QUIT, pygame.MOUSEBUTTONDOWN))
 
+    info = pygame.display.Info()
+    screen_width, screen_height = info.current_w, info.current_h
+    ratio = min(screen_width/MAX_WIDTH, screen_height/MAX_HEIGHT, 1)
+    ratio = 0.75
+
+
     clock = pygame.time.Clock()
-    window = pygame.display.set_mode((1200, 1050)) #arg? pygame.SCALED ????
+    window = pygame.display.set_mode((int(ratio*MAX_WIDTH),
+                                                         int(ratio*MAX_HEIGHT)))
 
     dirname = os.path.dirname(__file__) # directory of this module's file
-    background_s = pygame.image.load(os.path.join(dirname, 'images',
-                                          'modern_skin', 'board.png')).convert()
-    pyramid0_s = pygame.image.load(os.path.join(dirname, 'images',
-                                       'modern_skin', 'pyramid0.png')).convert()
-    pyramid1_s = pygame.image.load(os.path.join(dirname, 'images',
-                                       'modern_skin', 'pyramid1.png')).convert()
-    font = pygame.font.Font(None, 40) # default font, size 20
-    cant_move_text_s = font.render('All Moves Blocked', True, pygame.Color('black'))
+    background_s = scale_surface(pygame.image.load(os.path.join(
+               dirname, 'images', 'modern_skin', 'board.png')).convert(), ratio)
+    pyramid0_s = scale_surface(pygame.image.load(os.path.join(
+            dirname, 'images', 'modern_skin', 'pyramid0.png')).convert(), ratio)
+    pyramid1_s = scale_surface(pygame.image.load(os.path.join(
+            dirname, 'images', 'modern_skin', 'pyramid1.png')).convert(), ratio)
 
+    #font = pygame.font.Font(None, 40) # default font, size 20
+    #cant_move_text_s = font.render('All Moves Blocked', True,
+                                                          #pygame.Color('black'))
     window.blit(background_s, (0, 0))
 
     def __init__ (self, side = 'L', num_start_pieces = 7, num_end_pieces = 0):
@@ -70,7 +92,9 @@ class LocalInterface(PlayerInterface):
                                        'blue_small_piece.png'
                                     )
                                 ).convert_alpha()
-            self._start_rects = tuple(starmap(pygame.Rect, (
+            self._start_rects = tuple(starmap(
+                              lambda *t: pygame.Rect(scale_tuple(t, self.ratio)), 
+                                      (
                                         ( 30, 90, 50, 50),
                                         ( 85, 90, 50, 50),
                                         (140, 90, 50, 50),
@@ -79,7 +103,9 @@ class LocalInterface(PlayerInterface):
                                         (305, 90, 50, 50),
                                         (360, 90, 50, 50),
                                 )))
-            self._end_rects = tuple(starmap(pygame.Rect, (
+            self._end_rects = tuple(starmap(
+                              lambda *t: pygame.Rect(scale_tuple(t, self.ratio)), 
+                                      (
                                         ( 30, 750, 50, 50),
                                         ( 85, 750, 50, 50),
                                         (140, 750, 50, 50),
@@ -88,7 +114,9 @@ class LocalInterface(PlayerInterface):
                                         (305, 750, 50, 50),
                                         (360, 750, 50, 50),
                               )))
-            self._board_squares = tuple(starmap(pygame.Rect, (
+            self._board_squares = tuple(starmap(
+                              lambda *t: pygame.Rect(scale_tuple(t, self.ratio)), 
+                                      (
                                         (443, 422, 94, 94),
                                         (443, 310, 94, 94),
                                         (443, 200, 94, 94),
@@ -104,28 +132,32 @@ class LocalInterface(PlayerInterface):
                                         (443, 865, 94, 94),
                                         (443, 755, 94, 94),
                                   )))
-            self._roll_rects = tuple(starmap(pygame.Rect, (
+            self._roll_rects = tuple(starmap(
+                              lambda *t: pygame.Rect(scale_tuple(t, self.ratio)), 
+                                      (
                                         ( 15, 542, 100, 100),
                                         (115, 542, 100, 100),
                                         (215, 542, 100, 100),
                                         (315, 542, 100, 100),
                                )))
-            self._message_rect = pygame.Rect(50, 405, 300, 150)
+            self._message_rect = pygame.Rect(scale_tuple((50, 405, 300, 150), self.ratio))
 
         else: # side == 'R' start,end,message,roll rects not correct
             self._piece_s = pygame.image.load(
                                    os.path.join(
                                      self.dirname, 'images', 'modern_skin',
-                                       'red_piece.png'
+                                     'red_piece.png'
                                    )
                                 ).convert_alpha()
             self._piece_small_s = pygame.image.load(
                                     os.path.join(
-                                     self.dirname, 'images', 'modern_skin',
-                                       'red_small_piece.png'
+                                      self.dirname, 'images', 'modern_skin',
+                                      'red_small_piece.png'
                                     )
                                 ).convert_alpha()
-            self._start_rects = tuple(starmap(pygame.Rect, (
+            self._start_rects = tuple(starmap(
+                              lambda *t: pygame.Rect(scale_tuple(t, self.ratio)), 
+                                      (
                                         ( 790, 90, 55, 55),
                                         ( 845, 90, 55, 55),
                                         ( 900, 90, 55, 55),
@@ -134,7 +166,9 @@ class LocalInterface(PlayerInterface):
                                         (1065, 90, 55, 55),
                                         (1120, 90, 55, 55),
                                 )))
-            self._end_rects = tuple(starmap(pygame.Rect, (
+            self._end_rects = tuple(starmap(
+                              lambda *t: pygame.Rect(scale_tuple(t, self.ratio)), 
+                                      (
                                         ( 790, 750, 55, 55),
                                         ( 845, 750, 55, 55),
                                         ( 900, 750, 55, 55),
@@ -143,7 +177,9 @@ class LocalInterface(PlayerInterface):
                                         (1065, 750, 55, 55),
                                         (1120, 750, 55, 55),
                               )))
-            self._board_squares = tuple(starmap(pygame.Rect, (
+            self._board_squares = tuple(starmap(
+                              lambda *t: pygame.Rect(scale_tuple(t, self.ratio)), 
+                                      (
                                         (663, 422, 94, 94),
                                         (663, 310, 94, 94),
                                         (663, 200, 94, 94),
@@ -159,13 +195,16 @@ class LocalInterface(PlayerInterface):
                                         (663, 865, 94, 94),
                                         (663, 755, 94, 94),
                                   )))
-            self._roll_rects = tuple(starmap(pygame.Rect, (
+            self._roll_rects = tuple(starmap(
+                              lambda *t: pygame.Rect(scale_tuple(t, self.ratio)), 
+                                      (
                                         ( 785, 542, 100, 100),
                                         ( 885, 542, 100, 100),
                                         ( 985, 542, 100, 100),
                                         (1085, 542, 100, 100),
                                )))
-            self._message_rect = pygame.Rect(55, 540, 450, 150)
+            self._message_rect = pygame.Rect(scale_tuple(
+                                               (55, 540, 450, 150), self.ratio))
 
         self._start_area = self._start_rects[0].unionall(self._start_rects[1:])
         self._roll_area = self._roll_rects[0].unionall(self._roll_rects[1:])
@@ -187,6 +226,8 @@ class LocalInterface(PlayerInterface):
                 return event
             if event.type == pygame.QUIT:
                 raise GUIQuitException
+
+
 
 
     def show_roll(self, roll):
@@ -266,7 +307,7 @@ class LocalInterface(PlayerInterface):
         LocalPlayerInterface.result_shown = True'''
         pass
 
-    def check_for_quit():
+    def check_for_quit(self):
         if pygame.QUIT in pygame.event.get():
             raise GUIQuitException
 
