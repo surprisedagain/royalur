@@ -59,94 +59,111 @@ class LocalInterface(PlayerInterface):
 
         if side == 'L':
             self._piece_s = pygame.image.load(
-                                  os.path.join(
-                                    self.dirname, 'images', 'modern_skin', 'left_piece.png'
-                                  )
-                                ).convert() #???? look into alpha-convert
+                                   os.path.join(
+                                     self.dirname, 'images', 'modern_skin',
+                                       'blue_piece.png'
+                                   )
+                                ).convert_alpha()
+            self._piece_small_s = pygame.image.load(
+                                    os.path.join(
+                                     self.dirname, 'images', 'modern_skin',
+                                       'blue_small_piece.png'
+                                    )
+                                ).convert_alpha()
             self._start_rects = tuple(starmap(pygame.Rect, (
-                                        ( 35, 90, 105, 105),
-                                        (140, 90, 105, 105),
-                                        (245, 90, 105, 105),
-                                        (350, 90, 105, 105),
-                                        (455, 90, 105, 105),
-                                        (560, 90, 105, 105),
-                                        (665, 90, 105, 105),
+                                        ( 30, 90, 50, 50),
+                                        ( 85, 90, 50, 50),
+                                        (140, 90, 50, 50),
+                                        (195, 90, 50, 50),
+                                        (250, 90, 50, 50),
+                                        (305, 90, 50, 50),
+                                        (360, 90, 50, 50),
                                 )))
             self._end_rects = tuple(starmap(pygame.Rect, (
-                                        ( 35, 750, 105, 105),
-                                        (140, 750, 105, 105),
-                                        (245, 750, 105, 105),
-                                        (350, 750, 105, 105),
-                                        (455, 750, 105, 105),
-                                        (560, 750, 105, 105),
-                                        (665, 750, 105, 105),
+                                        ( 30, 750, 50, 50),
+                                        ( 85, 750, 50, 50),
+                                        (140, 750, 50, 50),
+                                        (195, 750, 50, 50),
+                                        (250, 750, 50, 50),
+                                        (305, 750, 50, 50),
+                                        (360, 750, 50, 50),
                               )))
             self._board_squares = tuple(starmap(pygame.Rect, (
-                                        (442, 422, 94, 94),
-                                        (442, 311, 94, 94),
-                                        (442, 201, 94, 94),
-                                        (442,  88, 94, 94),
-                                        (553,  88, 94, 94),
-                                        (553, 201, 94, 94),
-                                        (553, 311, 94, 94),
-                                        (553, 422, 94, 94),
-                                        (553, 532, 94, 94),
-                                        (553, 644, 94, 94),
-                                        (553, 755, 94, 94),
-                                        (553, 865, 94, 94),
-                                        (442, 865, 94, 94),
-                                        (442, 755, 94, 94),
+                                        (443, 422, 94, 94),
+                                        (443, 310, 94, 94),
+                                        (443, 200, 94, 94),
+                                        (443,  88, 94, 94),
+                                        (554,  88, 94, 94),
+                                        (554, 200, 94, 94),
+                                        (554, 310, 94, 94),
+                                        (554, 422, 94, 94),
+                                        (554, 532, 94, 94),
+                                        (554, 644, 94, 94),
+                                        (554, 755, 94, 94),
+                                        (554, 865, 94, 94),
+                                        (443, 865, 94, 94),
+                                        (443, 755, 94, 94),
                                   )))
             self._roll_rects = tuple(starmap(pygame.Rect, (
-                                        ( 50, 542, 100, 100),
-                                        (150, 542, 100, 100),
-                                        (250, 542, 100, 100),
-                                        (350, 542, 100, 100),
+                                        ( 15, 542, 100, 100),
+                                        (115, 542, 100, 100),
+                                        (215, 542, 100, 100),
+                                        (315, 542, 100, 100),
                                )))
             self._message_rect = pygame.Rect(50, 405, 300, 150)
 
         else: # side == 'R' start,end,message,roll rects not correct
             self._piece_s = pygame.image.load(
-                                  os.path.join(
-                                    self.dirname, 'images', 'modern_skin', 'right_piece.png'
-                                  )
-                                ).convert() #???? look into alpha-convert
+                                   os.path.join(
+                                     self.dirname, 'images', 'modern_skin',
+                                       'red_piece.png'
+                                   )
+                                ).convert_alpha()
+            self._piece_small_s = pygame.image.load(
+                                    os.path.join(
+                                     self.dirname, 'images', 'modern_skin',
+                                       'red_small_piece.png'
+                                    )
+                                ).convert_alpha()
             self._start_rects = tuple(starmap(pygame.Rect, (
-                                        ( 0, 260, 125, 125),
-                                        (0, 260, 125, 125),
-                                        (0, 260, 125, 125),
-                                        (0, 260, 125, 125),
-                                        (0, 260, 125, 125),
-                                        (0, 260, 125, 125),
-                                        (0, 260, 125, 125),
+                                        ( 790, 90, 55, 55),
+                                        ( 845, 90, 55, 55),
+                                        ( 900, 90, 55, 55),
+                                        ( 955, 90, 55, 55),
+                                        (1010, 90, 55, 55),
+                                        (1065, 90, 55, 55),
+                                        (1120, 90, 55, 55),
                                 )))
             self._end_rects = tuple(starmap(pygame.Rect, (
-                                        ( 35, 1000, 125, 125),
-                                        ( 35, 1000, 125, 125),
-                                        ( 35, 1000, 125, 125),
-                                        ( 35, 1000, 125, 125),
-                                        ( 35, 1000, 125, 125),
-                                        ( 35, 1000, 125, 125),
-                                        ( 35, 1000, 125, 125),
-
+                                        ( 790, 750, 55, 55),
+                                        ( 845, 750, 55, 55),
+                                        ( 900, 750, 55, 55),
+                                        ( 955, 750, 55, 55),
+                                        (1010, 750, 55, 55),
+                                        (1065, 750, 55, 55),
+                                        (1120, 750, 55, 55),
                               )))
             self._board_squares = tuple(starmap(pygame.Rect, (
-                                        (737,  118, 125, 125),
-                                        (737,  268, 125, 125),
-                                        (737,  414, 125, 125),
-                                        (737,  562, 125, 125),
-                                        (737,  710, 125, 125),
-                                        (737,  858, 125, 125),
-                                        (737, 1006, 125, 125),
-                                        (737, 1154, 125, 125),
-                                        (589, 1154, 125, 125),
+                                        (663, 422, 94, 94),
+                                        (663, 310, 94, 94),
+                                        (663, 200, 94, 94),
+                                        (663,  88, 94, 94),
+                                        (554,  88, 94, 94),
+                                        (554, 200, 94, 94),
+                                        (554, 310, 94, 94),
+                                        (554, 422, 94, 94),
+                                        (554, 532, 94, 94),
+                                        (554, 644, 94, 94),
+                                        (554, 755, 94, 94),
+                                        (554, 865, 94, 94),
+                                        (663, 865, 94, 94),
+                                        (663, 755, 94, 94),
                                   )))
-
             self._roll_rects = tuple(starmap(pygame.Rect, (
-                                        ( 85, 723, 100, 100),
-                                        (185, 723, 100, 100),
-                                        (285, 723, 100, 100),
-                                        (385, 723, 100, 100),
+                                        ( 785, 542, 100, 100),
+                                        ( 885, 542, 100, 100),
+                                        ( 985, 542, 100, 100),
+                                        (1085, 542, 100, 100),
                                )))
             self._message_rect = pygame.Rect(55, 540, 450, 150)
 
@@ -156,7 +173,7 @@ class LocalInterface(PlayerInterface):
                         self._board_squares[0].unionall(self._board_squares[1:])
 
         # put piece images into their initial positions
-        self.window.blits(((self._piece_s, rect)
+        self.window.blits(((self._piece_small_s, rect)
                     for rect in self._start_rects[:self._num_start_pieces]))
         self.clock.tick(40)
         pygame.display.flip()
@@ -210,7 +227,7 @@ class LocalInterface(PlayerInterface):
             dirty_rects.append(self._board_squares[start-1])
         if end == 15: #move to end.15==len(board_squares)-1 + 1 before + 1 after
             # may need to blit from background_s if pieces misalign
-            self.window.blit(self._piece_s,
+            self.window.blit(self._piece_small_s,
                                           self._end_rects[self._num_end_pieces])
             dirty_rects.append(self._end_rects[self._num_end_pieces])
             self._num_end_pieces += 1
@@ -222,7 +239,14 @@ class LocalInterface(PlayerInterface):
         pygame.display.update(dirty_rects)
         # end show_move
 
-    def show_cant_move(self):
+    def show_taken(self): # this may be bodgy - better to have a complete show opponents move
+        self.window.blit(self._piece_small_s,
+                                      self._start_rects[self._num_start_pieces])
+        self.clock.tick(40)
+        pygame.display.update(self._start_rects[self._num_start_pieces])
+        self._num_start_pieces += 1
+
+    def show_cant_move(self, roll):
         pass
 
 
@@ -243,7 +267,6 @@ class LocalInterface(PlayerInterface):
         pass
 
     def check_for_quit():
-
         if pygame.QUIT in pygame.event.get():
             raise GUIQuitException
 

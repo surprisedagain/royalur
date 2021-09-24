@@ -42,12 +42,14 @@ class Player():
     def move(self, start, end):
         if not self._pieces[start]:
             raise ValueError(f'Attempted to move from empty position {start}')
+        take = False
         if self.FIRST_COMBAT <= end < self.FIRST_SAFE_AGAIN and self.opponent._pieces[end]:
+            take = True
             self.opponent._pieces[end] -= 1
             self.opponent._pieces[0] += 1
         self._pieces[start] -= 1
         self._pieces[end] += 1
-        return end in self.STARS
+        return (end in self.STARS, take)
 
     def has_won(self):
         return self._pieces[-1] == 7

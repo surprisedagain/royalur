@@ -7,6 +7,7 @@
 from ur_interface import LocalInterface, GUIQuitException
 from ur_player import Player
 from random import randrange
+from sys import exit
 
 # setup game
 first_player = Player(LocalInterface(side = 'L'))
@@ -25,7 +26,7 @@ try:
             curr_player.interface.show_roll(roll) # we have already rolled the dice before we show
             if not curr_player.can_move(roll):
                 curr_player.interface.show_cant_move(roll)
-                # another_move remains True
+                another_move = False
             else:
                 # get valid move
                 start = curr_player.interface.get_start(roll)
@@ -35,8 +36,11 @@ try:
                     start = curr_player.interface.get_start(roll)
                     end = start + roll
                 # perform and show move
-                another_move = curr_player.move(start, end)
+                another_move, take = curr_player.move(start, end)
                 curr_player.interface.show_move(start, end)
+                if take:
+                    curr_player.opponent.interface.show_taken()
+        curr_player = curr_player.opponent
     curr_player.interface.show_lost()
     curr_player.opponent.interface.show_won()
     
