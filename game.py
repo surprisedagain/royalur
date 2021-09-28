@@ -2,7 +2,7 @@
 
 # Written by Nathan Sinclair: Begun 10 Sep 2021
 # Already learnt about shebang, ABC.@abstractmethods, git stage+commit+pull+push
-# moderately overwhelmed (might equal learning)
+# MVC approach appears to have been applied successfully1
 
 from interface import LocalInterface, GUIQuitException
 from player import Player

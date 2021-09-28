@@ -1,12 +1,18 @@
 # Config files with potentially private detaisl such as ip addresses
 .urconf*
 
+# GIMP image files
+*.xcf
+
 # annoying OSX icon files
 Icon?
 
 # vim swp files
 *.swp
 *.swo
+
+# font files
+images/fonts/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
