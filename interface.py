@@ -194,7 +194,7 @@ class LocalInterface(PlayerInterface):
                                         (1120, 750, 55, 55),
                               )))
             self._board_squares = tuple(map(
-                              lambda t: pygame.Rect(scale_tuple(t, self._ratio)), 
+                             lambda t: pygame.Rect(scale_tuple(t, self._ratio)), 
                                       (
                                         (663, 422, 94, 94),
                                         (663, 310, 94, 94),
@@ -317,6 +317,7 @@ class LocalInterface(PlayerInterface):
     def show_taken(self): # this may be bodgy - better to have a complete show opponents move
         self._window.blit(self._piece_small_s,
                                       self._start_rects[self._num_start_pieces])
+        self._clock.tick(40) #if this line omitted display lags
         pygame.display.update(self._start_rects[self._num_start_pieces])
         self._num_start_pieces += 1
 
