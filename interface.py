@@ -242,36 +242,40 @@ class LocalInterface(PlayerInterface):
             if event.type == pygame.QUIT:
                 raise GUIQuitException
 
-    def show_roll(self, roll):
+    def show_roll(self, roll, no_click_roll):
         pyramids = [self._pyramid1_s] * roll + [self._pyramid0_s] * (4 - roll)
         shuffle(pyramids)
 
-        self._window.blit(self._roll_msg_s, self._msg_rect)
-        pygame.display.update(self._msg_rect)
-
-        pygame.event.set_allowed(pygame.MOUSEMOTION)
-        roll_msg_isbold = False
-        while True: # wait until BUTTONDOWN in _roll_area
-            event = self.get_next_matching_event(pygame.MOUSEBUTTONDOWN,
-                                                             pygame.MOUSEMOTION)
-            if self._roll_area.collidepoint(event.pos):
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    break
-                if event.type == pygame.MOUSEMOTION and not roll_msg_isbold:
-                    roll_msg_isbold = True
-                    self._window.blit(self._roll_bold_msg_s, self._msg_rect)
-            elif roll_msg_isbold:
-                roll_msg_isbold = False
-                self._window.blit(self._roll_msg_s, self._msg_rect)
+        if not no_click_roll:
+            self._window.blit(self._roll_msg_s, self._msg_rect)
             self._clock.tick(40)
             pygame.display.update(self._msg_rect)
-        pygame.event.set_blocked(pygame.MOUSEMOTION)
+            pygame.event.set_allowed(pygame.MOUSEMOTION)
+            roll_msg_isbold = False
+            while True: # wait until BUTTONDOWN in _roll_area
+                event = self.get_next_matching_event(pygame.MOUSEBUTTONDOWN,
+                                                                 pygame.MOUSEMOTION)
+                if self._roll_area.collidepoint(event.pos):
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        break
+                    if event.type == pygame.MOUSEMOTION and not roll_msg_isbold:
+                        roll_msg_isbold = True
+                        self._window.blit(self._roll_bold_msg_s, self._msg_rect)
+                elif roll_msg_isbold:
+                    roll_msg_isbold = False
+                    self._window.blit(self._roll_msg_s, self._msg_rect)
+                self._clock.tick(40)
+                pygame.display.update(self._msg_rect)
+            pygame.event.set_blocked(pygame.MOUSEMOTION)
+
         self._window.blits(zip(pyramids, self._roll_rects))
+        self._clock.tick(40)
         pygame.display.update(self._roll_area)
 
 
     def get_start(self, roll):
         self._window.blit(self._move_msg_s[roll], self._msg_rect)
+        self._clock.tick(40)
         pygame.display.update(self._roll_area)
         result = None
         while result == None:

@@ -9,7 +9,7 @@ from player import Player
 from random import randrange
 from sys import exit, argv
 
-def play():
+def play(*, no_click_roll = False):
     # setup game
     first_player = Player(LocalInterface(side = 'L'))
     second_player = Player(LocalInterface(side = 'R'), opponent=first_player)
@@ -24,7 +24,7 @@ def play():
             another_move = True
             while another_move:
                 roll = curr_player.roll_pyramids() 
-                curr_player.interface.show_roll(roll) # we have already rolled the dice before we show
+                curr_player.interface.show_roll(roll, no_click_roll) # we have already rolled the dice before we show
                 if not curr_player.can_move(roll):
                     curr_player.interface.show_cant_move(roll)
                     another_move = False
@@ -55,4 +55,8 @@ def play():
             exit(0)
 
 if __name__ == '__main__':
-    play()
+    from argparse import ArgumentParser
+    parser = ArgumentParser(description="Play the Royal Game of Ur")
+    parser.add_argument('--noclickroll', '-ncr', action='store_true')
+    options = parser.parse_args()
+    play(no_click_roll=options.noclickroll)
