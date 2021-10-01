@@ -325,7 +325,7 @@ class LocalInterface(PlayerInterface):
         pygame.display.update(self._start_rects[self._num_start_pieces])
         self._num_start_pieces += 1
 
-    def show_cant_move(self, roll):
+    def show_cant_move(self):
         self._window.blit(self._move_msg_s[0], self._msg_rect)
         pygame.display.update(self._msg_rect)
         pygame.time.wait(1500)

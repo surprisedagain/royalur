@@ -7,7 +7,7 @@
 from interface import LocalInterface, GUIQuitException
 from player import Player
 from random import randrange
-from sys import exit, argv
+from sys import exit
 
 def play(*, no_click_roll = False):
     # setup game
@@ -26,7 +26,7 @@ def play(*, no_click_roll = False):
                 roll = curr_player.roll_pyramids() 
                 curr_player.interface.show_roll(roll, no_click_roll) # we have already rolled the dice before we show
                 if not curr_player.can_move(roll):
-                    curr_player.interface.show_cant_move(roll)
+                    curr_player.interface.show_cant_move()
                     another_move = False
                 else:
                     # get valid move
@@ -57,6 +57,7 @@ def play(*, no_click_roll = False):
 if __name__ == '__main__':
     from argparse import ArgumentParser
     parser = ArgumentParser(description="Play the Royal Game of Ur")
-    parser.add_argument('--noclickroll', '-ncr', action='store_true')
+    parser.add_argument('-ncr', '--noclickroll', action='store_true',
+                                   help='do not require click to roll pyramids')
     options = parser.parse_args()
     play(no_click_roll=options.noclickroll)
