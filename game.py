@@ -56,6 +56,7 @@ def play(*, no_click_roll = False):
 
 if __name__ == '__main__':
     from argparse import ArgumentParser
+
     parser = ArgumentParser(description="Play the Royal Game of Ur")
     parser.add_argument('-ncr', '--noclickroll', action='store_true',
                                    help='do not require click to roll pyramids')

@@ -53,7 +53,7 @@ class LocalInterface(PlayerInterface):
     info = pygame.display.Info()
     MAX_WIDTH, MAX_HEIGHT = 1200, 1050
     screen_width, screen_height = info.current_w, info.current_h
-    _ratio = min((screen_width-100)/MAX_WIDTH, (screen_height-100)/MAX_HEIGHT, 1)
+    _ratio = min((screen_width-100)/MAX_WIDTH, (screen_height-100)/MAX_HEIGHT,1)
 
 
     pygame.display.set_caption('Ur')
