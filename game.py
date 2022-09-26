@@ -4,6 +4,8 @@
 # Already learnt about shebang, ABC.@abstractmethods, git stage+commit+pull+push
 # MVC approach appears to have been applied successfully1
 
+# git test
+
 from interface import LocalInterface, GUIQuitException
 from player import Player
 from random import randrange
